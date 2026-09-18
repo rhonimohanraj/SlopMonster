@@ -86,7 +86,7 @@ CLAUDE="$(find_bin claude || true)"
 
 run_bounded() {  # run_bounded <cmd...>  — macOS has no `timeout`, so we roll one
   OUT="$(mktemp)"; trap 'rm -f "$OUT"' RETURN
-  "$@" >"$OUT" 2>&1 </dev/null &
+  "$@" >"$OUT" </dev/null &
   PID=$!; WAITED=0
   while kill -0 "$PID" 2>/dev/null; do
     if [ "$WAITED" -ge "$TIMEOUT" ]; then
